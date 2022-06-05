@@ -4,7 +4,7 @@ public class Passenger {
     private boolean survived;
     private int pClass;
     private String fullName;
-    private String sex; //true male, false female
+    private String sex;
     private double age;
     private int sibSp;
     private int parch;
@@ -49,11 +49,106 @@ public class Passenger {
 
     public String getFormattedName(String firstName,String lastName){
         String fullName = firstName+" ";
-        String [] fullLastName = lastName.split(". ");
-        for (int i=1;i<fullLastName.length;i++){
-            fullName +=fullLastName[i];
+        String [] fullLastName = lastName.split(" ");
+        for (int i=2;i<fullLastName.length;i++){
+            fullName =fullName+" " +fullLastName[i];
         }
         return fullName;
+    }
 
+    public int getPassengerId() {
+        return passengerId;
+    }
+
+    public void setPassengerId(int passengerId) {
+        this.passengerId = passengerId;
+    }
+
+    public boolean isSurvived() {
+        return survived;
+    }
+
+    public void setSurvived(boolean survived) {
+        this.survived = survived;
+    }
+
+    public int getpClass() {
+        return pClass;
+    }
+
+    public void setpClass(int pClass) {
+        this.pClass = pClass;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public double getAge() {
+        return age;
+    }
+
+    public void setAge(double age) {
+        this.age = age;
+    }
+
+    public int getSibSp() {
+        return sibSp;
+    }
+
+    public void setSibSp(int sibSp) {
+        this.sibSp = sibSp;
+    }
+
+    public int getParch() {
+        return parch;
+    }
+
+    public void setParch(int parch) {
+        this.parch = parch;
+    }
+
+    public String getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(String ticket) {
+        this.ticket = ticket;
+    }
+
+    public double getFare() {
+        return fare;
+    }
+
+    public void setFare(double fare) {
+        this.fare = fare;
+    }
+
+    public String getCabin() {
+        return cabin;
+    }
+
+    public void setCabin(String cabin) {
+        this.cabin = cabin;
+    }
+
+    public String getEmbarked() {
+        return embarked;
+    }
+
+    public void setEmbarked(String embarked) {
+        this.embarked = embarked;
     }
 }
