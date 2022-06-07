@@ -151,4 +151,6 @@ public class Passenger {
     public void setEmbarked(String embarked) {
         this.embarked = embarked;
     }
+
+
 }
