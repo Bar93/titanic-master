@@ -104,10 +104,10 @@ public class MainPanel extends JPanel {
         this.statisticButton.setBounds(450, 300, 100, 50);
         this.add(this.statisticButton);
         this.filterStatus = new JLabel("Chose filter option");
-        this.filterStatus.setBounds(10 + Constants.MARGIN_FROM_LEFT, 200, Constants.LABEL_WIDTH*2, Constants.LABEL_HEIGHT);
+        this.filterStatus.setBounds(10 + Constants.MARGIN_FROM_LEFT, 200, Constants.LABEL_WIDTH*2, 200);
         this.add(this.filterStatus);
         this.filterResult = new JLabel("Filter result:");
-        this.filterResult.setBounds(10 + Constants.MARGIN_FROM_LEFT, 300, Constants.LABEL_WIDTH*2, Constants.LABEL_HEIGHT);
+        this.filterResult.setBounds(10 + Constants.MARGIN_FROM_LEFT, 500, Constants.LABEL_WIDTH*2, Constants.LABEL_HEIGHT);
         this.add(this.filterResult);
         }
 
@@ -146,51 +146,77 @@ public class MainPanel extends JPanel {
 
     public boolean checkUserFilter (String[] filterOption) {
         boolean ans = true;
-        String filterStatus = "";
-//        for (int i=0;i<this.rangeIdMin.getText().length();i++){
-//            if (!Character.isDigit(this.rangeIdMin.getText().charAt(i))){
-//                ans = false;
-//                break;
-//            }
-//        }
-//        for (int i=0;i<this.rangeIdMax.getText().length();i++){
-//            if (!Character.isDigit(this.rangeIdMax.getText().charAt(i))){
-//                ans = false;
-//                break;
-//            }
-//        }
-//        for (int i=0;i<this.rangeFareMin.getText().length();i++){
-//            if (!Character.isDigit(this.rangeFareMin.getText().charAt(i))){
-//                ans = false;
-//                break;
-//            }
-//        }
-//        for (int i=0;i<this.rangeFareMax.getText().length();i++){
-//            if (!Character.isDigit(this.rangeFareMax.getText().charAt(i))){
-//                ans = false;
-//                break;
-//            }
-//        }
-//        try {
-//            if (Integer.valueOf(filterOption[3])>Integer.valueOf(filterOption[4])){
-//                ans = false;
-//                filterStatus = "Range of ID is incorrect\n";
-//            }
-//            if (Double.valueOf(filterOption[9])>Double.valueOf(filterOption[10])){
-//                ans = false;
-//                filterStatus+="\nRange of fare ticket is incorrect";
-//            }
-//            if (!filterOption[8].equals("-1")){
-//                if (filterOption[8].length()>1) {
-//                    ans = false;
-//                    filterStatus += "\n enter only one number in Ticket";
-//                }
-//            }
-//        }
-//        catch (NumberFormatException e){
-//            e.printStackTrace();
-//        }
-//        this.filterStatus.setText(filterStatus);
+        String filterStatus = "<html>";
+        for (int i=0;i<this.rangeIdMin.getText().length();i++){
+            if (!Character.isDigit(this.rangeIdMin.getText().charAt(i))){
+                ans = false;
+                filterStatus = filterStatus + "Enter numbers only<br/>";
+                break;
+            }
+        }
+        for (int i=0;i<this.rangeIdMax.getText().length();i++){
+            if (!Character.isDigit(this.rangeIdMax.getText().charAt(i))){
+                filterStatus = filterStatus + "Enter numbers only<br/>";
+                ans = false;
+                break;
+            }
+        }
+        for (int i=0;i<this.rangeFareMin.getText().length();i++){
+            if (!Character.isDigit(this.rangeFareMin.getText().charAt(i))){
+                filterStatus = filterStatus + "Enter numbers only<br/>";
+                ans = false;
+                break;
+            }
+        }
+        for (int i=0;i<this.rangeFareMax.getText().length();i++){
+            if (!Character.isDigit(this.rangeFareMax.getText().charAt(i))){
+                filterStatus = filterStatus + "Enter numbers only<br/>";
+                ans = false;
+                break;
+            }
+        }
+        try {
+            int minID,maxID,minFare,maxFare;
+            if (!filterOption[3].equals("")){
+                minID =Integer.valueOf(filterOption[3]);
+            }
+            else minID=0;
+
+            if (!filterOption[4].equals("")){
+                maxID =Integer.valueOf(filterOption[4]);
+            }
+            else maxID=891;
+
+            if (!filterOption[9].equals("")){
+                minFare =Integer.valueOf(filterOption[9]);
+            }
+            else minFare=0;
+
+            if (!filterOption[10].equals("")){
+                maxFare =Integer.valueOf(filterOption[10]);
+            }
+            else maxFare=513;
+
+            if (minID>maxID){
+                ans = false;
+                filterStatus = filterStatus + "Range of ID is incorrect<br/>";
+            }
+            if (minFare>maxFare){
+                ans = false;
+                filterStatus= filterStatus +"Range of fare ticket is incorrect<br/>";
+            }
+            if (!filterOption[8].equals("")){
+                if (filterOption[8].length()>1) {
+                    ans = false;
+                    filterStatus =filterStatus+ "enter only one number in Ticket<br/>";
+                }
+            }
+        }
+        catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+        filterStatus = filterStatus + "</html>";
+        this.filterStatus.setText(filterStatus);
         return ans;
     }
 
@@ -381,14 +407,82 @@ public class MainPanel extends JPanel {
 
     public void createStatisticReport (List<Passenger> passengerList){
         String path = PATH_STATISTIC_FILE;
+        int countFamilyLeastOne=0,countNonFamily=0;
+        double numOfPassengerClass1 = passengerList.stream().filter(x->x.getpClass()==Integer.valueOf("1")).count();
+        double numOfPassengerClass2 = passengerList.stream().filter(x->x.getpClass()==Integer.valueOf("2")).count();
+        double numOfPassengerClass3 = passengerList.stream().filter(x->x.getpClass()==Integer.valueOf("3")).count();
         double numOfSurvivedClass1 = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getpClass()==Integer.valueOf("1")).count();
+        double numOfSurvivedClass2 = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getpClass()==Integer.valueOf("2")).count();
+        double numOfSurvivedClass3 = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getpClass()==Integer.valueOf("3")).count();
+        double numOfPassengerMale = passengerList.stream().filter(x->x.getSex().equals("male")).count();
+        double numOfPassengerFemale = passengerList.stream().filter(x->x.getSex().equals("female")).count();
+        double numOfSurvivedMale = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getSex().equals("male")).count();
+        double numOfSurvivedFemale = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getSex().equals("female")).count();
+        double numOfPassengerAge10 = passengerList.stream().filter(x->x.getAge()<=10).count();
+        double numOfSurvivedAge10 = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getAge()<=10).count();
+        double numOfPassengerAge20 = passengerList.stream().filter(x->x.getAge()<=20 && x.getAge()>=11).count();
+        double numOfSurvivedAge20 = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getAge()<=30 && x.getAge()>=21).count();
+        double numOfPassengerAge30 = passengerList.stream().filter(x->x.getAge()<=20 && x.getAge()>=11).count();
+        double numOfSurvivedAge30 = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getAge()<=30 && x.getAge()>=21).count();
+        double numOfPassengerAge40 = passengerList.stream().filter(x->x.getAge()<=40 && x.getAge()>=31).count();
+        double numOfSurvivedAge40 = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getAge()<=40 && x.getAge()>=31).count();
+        double numOfPassengerAge50 = passengerList.stream().filter(x->x.getAge()<=50 && x.getAge()>=41).count();
+        double numOfSurvivedAge50 = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getAge()<=50 && x.getAge()>=41).count();
+        double numOfPassengerAge51 = passengerList.stream().filter(x->x.getAge()>=51).count();
+        double numOfSurvivedAge51 = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getAge()>=51).count();
+        double numOfPassengerFare10 = passengerList.stream().filter(x->x.getFare()<10).count();
+        double numOfSurvivedFare10 = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getFare()<10).count();
+        double numOfPassengerFare20 = passengerList.stream().filter(x->x.getFare()>10 &&x.getFare()<30 ).count();
+        double numOfSurvivedFare20 = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getFare()>10 &&x.getFare()<30 ).count();
+        double numOfPassengerFare30 = passengerList.stream().filter(x->x.getFare()>30).count();
+        double numOfSurvivedFare30 = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getFare()>30).count();
+        double numOfPassengerEmbarkedS = passengerList.stream().filter(x->x.getEmbarked().equals("S")).count();
+        double numOfSurvivedEmbarkedS = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getEmbarked().equals("S")).count();
+        double numOfPassengerEmbarkedC = passengerList.stream().filter(x->x.getEmbarked().equals("C")).count();
+        double numOfSurvivedEmbarkedC = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getEmbarked().equals("C")).count();
+        double numOfPassengerEmbarkedQ = passengerList.stream().filter(x->x.getEmbarked().equals("Q")).count();
+        double numOfSurvivedEmbarkedQ = passengerList.stream().filter(Passenger::isSurvived).filter(x->x.getEmbarked().equals("Q")).count();
+        for (int i=0;i<passengerList.size();i++) {
+            if (passengerList.get(i).isSurvived()) {
+                int numOfFamily = passengerList.get(i).getSibSp() + passengerList.get(i).getParch();
+                if (numOfFamily > 0) {
+                    countFamilyLeastOne++;
+                } else {
+                    countNonFamily++;
+                }
+            }
+        }
+        double numOfSurvived = passengerList.stream().filter(Passenger::isSurvived).count();
         StringBuilder fullStatistic = new StringBuilder();
         StringBuilder rowByClass = new StringBuilder();
+        rowByClass.append("Class: ").append("Class1 :"+(int)(numOfSurvivedClass1*100/numOfPassengerClass1)+"%")
+                .append(", ").append("Class2 "+(int)(numOfSurvivedClass2*100/numOfPassengerClass2)+"%")
+                .append(", ").append("Class3 "+(int)(numOfSurvivedClass3*100/numOfPassengerClass3)+"%").append("\n");
         StringBuilder rowByAge = new StringBuilder();
+        rowByAge.append("Age: ").append("0-10: "+(int)(numOfSurvivedAge10*100/numOfPassengerAge10)+"%")
+                .append(", ").append("11-20: "+(int)(numOfSurvivedAge20*100/numOfPassengerAge20))
+                .append(", ").append("21-30: "+(int)(numOfSurvivedAge30*100/numOfPassengerAge30)+"%")
+                .append(", ").append("31-40: "+(int)(numOfSurvivedAge40*100/numOfPassengerAge40)+"%")
+                .append(", ").append("40-51: "+(int)(numOfSurvivedAge50*100/numOfPassengerAge50)+"%")
+                .append(", ").append("51+: "+(int)(numOfSurvivedAge51*100/numOfPassengerAge51)+"%").append("\n");
         StringBuilder rowByFare = new StringBuilder();
+        rowByFare.append("Fare: ").append("0-10 : "+(int)(numOfSurvivedFare10*100/numOfPassengerFare10)+"%")
+                .append(", ").append("11-30 : "+(int)(numOfSurvivedFare20*100/numOfPassengerFare20)+"%")
+                .append(", ").append("30+ : "+(int)(numOfSurvivedFare30*100/numOfPassengerFare30)+"%").append("\n");
         StringBuilder rowByEmbarked = new StringBuilder();
+        rowByEmbarked.append("Embarked: ").append("Q : "+(int)(numOfSurvivedEmbarkedQ*100/numOfPassengerEmbarkedQ)+"%")
+                .append(", ").append("S : "+(int)(numOfSurvivedEmbarkedS*100/numOfPassengerEmbarkedS)+"%")
+                .append(", ").append("C : "+(int)(numOfSurvivedEmbarkedC*100/numOfPassengerEmbarkedC)+"%").append("\n");
         StringBuilder rowBySex = new StringBuilder();
+        rowBySex.append("Sex: ").append("Male : "+(int)(numOfSurvivedMale*100/numOfPassengerMale)+"%")
+                .append(", ").append("Female : "+(int)(numOfSurvivedFemale*100/numOfPassengerFemale)+"%").append("\n");
         StringBuilder rowByFamily = new StringBuilder();
+        rowByFamily.append("Family: ").append("With least one family : "+(int)(countFamilyLeastOne*100/numOfSurvived)+"%")
+                .append(", ").append("Without family : "+(int)(countNonFamily*100/numOfSurvived)+"%").append("\n");
+
+
+        fullStatistic.append(rowByClass).append(rowByAge).append(rowByFare).append(rowBySex).append(rowByEmbarked).append(rowByFamily);
+        writeToTextFile2(fullStatistic,path);
 
     }
 

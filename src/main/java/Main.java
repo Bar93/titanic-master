@@ -9,6 +9,8 @@ class Main extends JFrame {
     public Main() {
         this.setTitle("Titanic Passengers Data");
         this.setLayout(null);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setSize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         this.add(new MainPanel(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
