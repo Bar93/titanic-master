@@ -62,52 +62,52 @@ public class MainPanel extends JPanel {
     }
     public void addComponent (){
         this.classComboBox = new JComboBox<>(Constants.PASSENGER_CLASS_OPTIONS);
-        this.classComboBox.setBounds(60, 10, 50,50);
+        this.classComboBox.setBounds(Constants.START_FILTER_LABEL_X, Constants.START_FILTER_LABEL_Y/10, Constants.COMBO_BOX_LABEL_WIDTH,Constants.COMBO_BOX_LABEL_HEIGHT);
         this.add(this.classComboBox);
         this.passengerSexBox = new JComboBox<>(Constants.SEX_OPTIONS);
-        this.passengerSexBox.setBounds(120, 10, 50,50);
+        this.passengerSexBox.setBounds(Constants.START_FILTER_LABEL_X*2, Constants.START_FILTER_LABEL_Y/10, Constants.COMBO_BOX_LABEL_WIDTH,Constants.COMBO_BOX_LABEL_HEIGHT);
         this.add(this.passengerSexBox);
         this.passengerEmbarkedBox = new JComboBox<>(Constants.EMBER_PASSENGER);
-        this.passengerEmbarkedBox.setBounds(180, 10, 50,50);
+        this.passengerEmbarkedBox.setBounds(Constants.START_FILTER_LABEL_X*3, Constants.START_FILTER_LABEL_Y/10, Constants.COMBO_BOX_LABEL_WIDTH,Constants.COMBO_BOX_LABEL_HEIGHT);
         this.add(this.passengerEmbarkedBox);
         this.rangeIdMin = new JTextField("Min Id");
-        this.rangeIdMin.setBounds(60,100,50,50);
+        this.rangeIdMin.setBounds(Constants.START_FILTER_LABEL_X, Constants.START_FILTER_LABEL_Y,Constants.COMBO_BOX_LABEL_WIDTH,Constants.COMBO_BOX_LABEL_HEIGHT);
         this.add(this.rangeIdMin);
         this.rangeIdMax = new JTextField("Max Id");
-        this.rangeIdMax.setBounds(110,100,50,50);
+        this.rangeIdMax.setBounds(Constants.START_FILTER_LABEL_X*2, Constants.START_FILTER_LABEL_Y,Constants.COMBO_BOX_LABEL_WIDTH,Constants.COMBO_BOX_LABEL_HEIGHT);
         this.add(this.rangeIdMax);
         this.passengerName = new JTextField("Name");
-        this.passengerName.setBounds(170,100,50,50);
+        this.passengerName.setBounds(Constants.START_FILTER_LABEL_X*3, Constants.START_FILTER_LABEL_Y,Constants.COMBO_BOX_LABEL_WIDTH,Constants.COMBO_BOX_LABEL_HEIGHT);
         this.add(this.passengerName);
         this.passengerSibSp = new JTextField("SibSp");
-        this.passengerSibSp.setBounds(230,100,50,50);
+        this.passengerSibSp.setBounds(Constants.START_FILTER_LABEL_X*4, Constants.START_FILTER_LABEL_Y,Constants.COMBO_BOX_LABEL_WIDTH,Constants.COMBO_BOX_LABEL_HEIGHT);
         this.add(this.passengerSibSp);
         this.passengerParch = new JTextField("Parch");
-        this.passengerParch.setBounds(290,100,50,50);
+        this.passengerParch.setBounds(Constants.START_FILTER_LABEL_X*5, Constants.START_FILTER_LABEL_Y,Constants.COMBO_BOX_LABEL_WIDTH,Constants.COMBO_BOX_LABEL_HEIGHT);
         this.add(this.passengerParch);
         this.passengerTicket = new JTextField("Ticket");
-        this.passengerTicket.setBounds(350,100,50,50);
+        this.passengerTicket.setBounds(Constants.START_FILTER_LABEL_X*6, Constants.START_FILTER_LABEL_Y,Constants.COMBO_BOX_LABEL_WIDTH,Constants.COMBO_BOX_LABEL_HEIGHT);
         this.add(this.passengerTicket);
         this.rangeFareMin = new JTextField("Min fare");
-        this.rangeFareMin.setBounds(410,100,50,50);
+        this.rangeFareMin.setBounds(Constants.START_FILTER_LABEL_X*7, Constants.START_FILTER_LABEL_Y,Constants.COMBO_BOX_LABEL_WIDTH,Constants.COMBO_BOX_LABEL_HEIGHT);
         this.add(this.rangeFareMin);
         this.rangeFareMax = new JTextField("Max fare");
-        this.rangeFareMax.setBounds(460,100,50,50);
+        this.rangeFareMax.setBounds(Constants.START_FILTER_LABEL_X*8, Constants.START_FILTER_LABEL_Y,Constants.COMBO_BOX_LABEL_WIDTH,Constants.COMBO_BOX_LABEL_HEIGHT);
         this.add(this.rangeFareMax);
         this.passengerCabin = new JTextField("Cabin");
-        this.passengerCabin.setBounds(520,100,50,50);
+        this.passengerCabin.setBounds(Constants.START_FILTER_LABEL_X*9, Constants.START_FILTER_LABEL_Y,Constants.COMBO_BOX_LABEL_WIDTH,Constants.COMBO_BOX_LABEL_HEIGHT);
         this.add(this.passengerCabin);
         this.filterButton = new JButton("Filter");
-        this.filterButton.setBounds(300, 300, 100, 50);
+        this.filterButton.setBounds(Constants.START_FILTER_LABEL_X*5, Constants.START_FILTER_LABEL_Y*3, Constants.BUTT0N_WIDTH, Constants.BUTT0N_HEIGHT);
         this.add(this.filterButton);
         this.statisticButton = new JButton("Statistic");
-        this.statisticButton.setBounds(450, 300, 100, 50);
+        this.statisticButton.setBounds(Constants.START_FILTER_LABEL_X*7, Constants.START_FILTER_LABEL_Y*3, Constants.BUTT0N_WIDTH, Constants.BUTT0N_HEIGHT);
         this.add(this.statisticButton);
         this.filterStatus = new JLabel("Chose filter option");
-        this.filterStatus.setBounds(10 + Constants.MARGIN_FROM_LEFT, 200, Constants.LABEL_WIDTH*2, 200);
+        this.filterStatus.setBounds( Constants.START_FILTER_LABEL_X/6+ Constants.MARGIN_FROM_LEFT, Constants.START_FILTER_LABEL_Y*2, Constants.COMBO_BOX_LABEL_WIDTH*4, Constants.COMBO_BOX_LABEL_HEIGHT*4);
         this.add(this.filterStatus);
         this.filterResult = new JLabel("Filter result:");
-        this.filterResult.setBounds(10 + Constants.MARGIN_FROM_LEFT, 500, Constants.LABEL_WIDTH*2, Constants.LABEL_HEIGHT);
+        this.filterResult.setBounds(Constants.START_FILTER_LABEL_X/6 + Constants.MARGIN_FROM_LEFT, Constants.START_FILTER_LABEL_Y*3, Constants.COMBO_BOX_LABEL_WIDTH*6, Constants.COMBO_BOX_LABEL_HEIGHT*4);
         this.add(this.filterResult);
         }
 
@@ -131,15 +131,9 @@ public class MainPanel extends JPanel {
             filterOption[10] = this.rangeFareMax.getText();
             filterOption[11] = this.passengerCabin.getText();
             for (int i=0;i<filterOption.length;i++){
-//                if (filterOption[i].equals("")){
-//                    filterOption[i] = "-1";
-//                }
                 if (filterOption[i].equals(Constants.DEFAULT_FILTER[i])){
                     filterOption[i] = "";
                 }
-            }
-            for (int i=0;i<filterOption.length;i++){
-                System.out.println(filterOption[i]);
             }
         return filterOption;
     }
@@ -147,55 +141,64 @@ public class MainPanel extends JPanel {
     public boolean checkUserFilter (String[] filterOption) {
         boolean ans = true;
         String filterStatus = "<html>";
-        for (int i=0;i<this.rangeIdMin.getText().length();i++){
-            if (!Character.isDigit(this.rangeIdMin.getText().charAt(i))){
-                ans = false;
-                filterStatus = filterStatus + "Enter numbers only<br/>";
-                break;
+        if (!filterOption[3].equals("")) {
+            for (int i = 0; i < this.rangeIdMin.getText().length(); i++) {
+                if (!Character.isDigit(this.rangeIdMin.getText().charAt(i))) {
+                    ans = false;
+                    filterStatus = filterStatus + "Enter numbers only<br/>";
+                    break;
+                }
             }
         }
-        for (int i=0;i<this.rangeIdMax.getText().length();i++){
-            if (!Character.isDigit(this.rangeIdMax.getText().charAt(i))){
-                filterStatus = filterStatus + "Enter numbers only<br/>";
-                ans = false;
-                break;
+        if (!filterOption[4].equals("")) {
+            for (int i = 0; i < this.rangeIdMax.getText().length(); i++) {
+                if (!Character.isDigit(this.rangeIdMax.getText().charAt(i))) {
+                    filterStatus = filterStatus + "Enter numbers only<br/>";
+                    ans = false;
+                    break;
+                }
             }
         }
-        for (int i=0;i<this.rangeFareMin.getText().length();i++){
-            if (!Character.isDigit(this.rangeFareMin.getText().charAt(i))){
-                filterStatus = filterStatus + "Enter numbers only<br/>";
-                ans = false;
-                break;
+        if (!filterOption[9].equals("")) {
+            for (int i = 0; i < this.rangeFareMin.getText().length(); i++) {
+                if (!Character.isDigit(this.rangeFareMin.getText().charAt(i))) {
+                    filterStatus = filterStatus + "Enter numbers only<br/>";
+                    ans = false;
+                    break;
+                }
             }
         }
-        for (int i=0;i<this.rangeFareMax.getText().length();i++){
-            if (!Character.isDigit(this.rangeFareMax.getText().charAt(i))){
-                filterStatus = filterStatus + "Enter numbers only<br/>";
-                ans = false;
-                break;
+        if (!filterOption[10].equals("")) {
+            for (int i = 0; i < this.rangeFareMax.getText().length(); i++) {
+                if (!Character.isDigit(this.rangeFareMax.getText().charAt(i))) {
+                    filterStatus = filterStatus + "Enter numbers only<br/>";
+                    ans = false;
+                    break;
+                }
             }
         }
         try {
-            int minID,maxID,minFare,maxFare;
+            int minID,maxID;
+            double minFare,maxFare;
             if (!filterOption[3].equals("")){
                 minID =Integer.valueOf(filterOption[3]);
             }
-            else minID=0;
+            else minID=Constants.MIN_ID;
 
             if (!filterOption[4].equals("")){
                 maxID =Integer.valueOf(filterOption[4]);
             }
-            else maxID=891;
+            else maxID=Constants.MAX_ID;
 
             if (!filterOption[9].equals("")){
                 minFare =Integer.valueOf(filterOption[9]);
             }
-            else minFare=0;
+            else minFare=Constants.MIN_FARE;
 
             if (!filterOption[10].equals("")){
                 maxFare =Integer.valueOf(filterOption[10]);
             }
-            else maxFare=513;
+            else maxFare=Constants.MAX_FARE;
 
             if (minID>maxID){
                 ans = false;
@@ -364,22 +367,10 @@ public class MainPanel extends JPanel {
             fullPassengerList =fullPassengerList.append(passengerSB);
         }
         titleSB.append(fullPassengerList);
-        writeToTextFile2(titleSB, path);
+        writeToTextFile(titleSB, path);
     }
 
-    public void writeToTextFile(List<Passenger> filteredList,String path){
-        try {
-            FileOutputStream file = new FileOutputStream(path);
-            ObjectOutputStream writer = new ObjectOutputStream(file);
-            writer.writeObject(filteredList);
-            writer.close();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void writeToTextFile2(StringBuilder sb,String path){
+    public void writeToTextFile(StringBuilder sb, String path){
         try {
             PrintWriter printWriter = new PrintWriter(path);
             printWriter.print(sb);
@@ -482,7 +473,7 @@ public class MainPanel extends JPanel {
 
 
         fullStatistic.append(rowByClass).append(rowByAge).append(rowByFare).append(rowBySex).append(rowByEmbarked).append(rowByFamily);
-        writeToTextFile2(fullStatistic,path);
+        writeToTextFile(fullStatistic,path);
 
     }
 
